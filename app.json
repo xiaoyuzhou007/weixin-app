@@ -1,0 +1,43 @@
+{
+  "pages": [
+    "pages/view/view",
+    "pages/perspective/perspective",
+    "pages/article/article",
+    "pages/rank/rank"
+  ],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "探索影视大数据平台",
+    "navigationBarBackgroundColor": "#222062",
+    "backgroundColor": "#222062"
+  },
+  "tabBar": {
+    "color": "#a9acc7",
+    "selectedColor": "#2d98ff",
+    "borderStyle": "black",
+    "backgroundColor": "#1f2c81",
+    "list": [
+      {
+        "pagePath": "pages/view/view",
+        "iconPath": "image/icon_view.png",
+        "selectedIconPath": "image/icon_view_cur.png",
+        "text": "实时收视"
+      },
+      {
+        "pagePath": "pages/rank/rank",
+        "iconPath": "image/icon_rank.png",
+        "selectedIconPath": "image/icon_rank_cur.png",
+        "text": "人气排行"
+      },
+      {
+        "pagePath": "pages/perspective/perspective",
+        "iconPath": "image/icon_perspective.png",
+        "selectedIconPath": "image/icon_perspective_cur.png",
+        "text": "探索视角"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 60000
+  }
+}

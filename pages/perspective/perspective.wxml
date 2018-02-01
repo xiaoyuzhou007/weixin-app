@@ -1,0 +1,31 @@
+<!--perspective.wxml-->
+<view class="content">
+  <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}rpx;" bindscrolltolower="bindDownLoad" bindscroll="scroll">
+    <block wx:for="{{list}}">
+      <view class="list_con">
+        <view class="{{(index%2==0)?'bg-g':''}}"></view>
+        <navigator url="../article/article?id={{item.id}}" class="weui-media-box weui-media-box_appmsg">
+          <view wx:if="{{item.pic.length>0}}">
+            <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+              <image class="weui-media-box__thumb" src="{{item.pic}}"></image>
+            </view>
+          </view>
+          <view wx:else>
+            <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+              <image class="weui-media-box__thumb" src="../../image/list_img_default.png"></image>
+            </view>
+          </view>
+          <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+            <view class="weui-media-box__title">{{item.title}}</view>
+            <view class="weui-media-box__desc">{{item.wxcontent}}</view>
+          </view>
+        </navigator>
+      </view>
+    </block>
+    <view class="no_more tc bright789_view_hide {{showView?'bright789_view_show':''}}">
+      <image class="cry" src="../../image/cry.png"></image>
+      <text>暂无更多</text>
+    </view>
+  </scroll-view>
+
+</view>

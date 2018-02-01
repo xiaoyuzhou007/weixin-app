@@ -1,0 +1,102 @@
+<!--view.wxml-->
+<view class="container">
+  <view class="top_con box">
+     <view class="box_1">
+      <text class="text_time">{{toDay}}</text> 
+    </view> 
+    <view class="box_2">
+      <view class="nav bc_white">
+        <view class="{{selected?'on':'default'}}" bindtap="selected"><text>实时收视率</text></view>
+        <view class="{{selected1?'on':'default'}}" bindtap="selected1"><text>收视详情</text></view>
+      </view>
+    </view>
+  </view>
+  <view class="{{selected?'show':'hidden'}}">
+    <view class="select_con box">
+      <view class="box_1">
+        <picker mode="selector" value="{{selectIndex[0]}}" range="{{tvList}}" data-column='0' bindchange='changeItem'>
+          <view class="picker tc cur">{{tvList[selectIndex[0]]}}<image class="arrow" src="../../image/arrow.png"></image></view>
+        </picker>
+      </view>
+      <view class="box_1">
+        <picker mode="selector" value="{{selectIndex[1]}}" range="{{tvList}}" data-column='1' bindchange='changeItem'>
+          <view class="picker tc cur">{{tvList[selectIndex[1]]}}<image class="arrow" src="../../image/arrow.png"></image></view>
+        </picker>
+      </view>
+      <view class="box_1">
+        <picker mode="selector" value="{{selectIndex[2]}}" range="{{tvList}}" data-column='2' bindchange='changeItem'>
+          <view class="picker tc cur">{{tvList[selectIndex[2]]}}<image class="arrow" src="../../image/arrow.png"></image></view>
+        </picker>
+      </view>
+    </view>
+    <view class="data_con">
+      <view class='chart'>
+        <view class='chart_bg'></view>
+        <text class='text_tit blue'>{{tvList[selectIndex[0]]}}</text>
+        <canvas canvas-id='canvas-0' style="width:{{canvasWidth}}rpx; height: {{canvasHeight}}rpx;" data-column="0" disable-scroll="true" bindtouchstart="touchHandler"></canvas>
+      </view>
+      <view class='chart'>
+        <view class='chart_bg'></view>
+        <text class='text_tit pink'>{{tvList[selectIndex[1]]}}</text>
+        <canvas canvas-id='canvas-1' style="width:{{canvasWidth}}rpx; height: {{canvasHeight}}rpx;" data-column="1" disable-scroll="true" bindtouchstart="touchHandler"></canvas>
+      </view>
+      <view class='chart'>
+        <view class='chart_bg'></view>
+        <text class='text_tit yellow'>{{tvList[selectIndex[2]]}}</text>
+        <canvas canvas-id='canvas-2' style="width:{{canvasWidth}}rpx; height: {{canvasHeight}}rpx;" data-column="2" disable-scroll="true" bindtouchstart="touchHandler"></canvas>
+      </view>
+    </view>
+  </view>
+  <view class="{{selected1?'show':'hidden'}}">
+    <view class="table">
+       <view class="tr tr_th">
+        <view class="th td1"></view>
+        <view class="th td2">频道</view>
+        <view class="th td3">节目</view>
+        <view class="th td4">收视率</view>
+        <view class="th td4">占有率</view>
+      </view> 
+
+      <block wx:for="{{tvTop10}}" wx:key="*this">
+        <view class="tr">
+          <view class="bg-g"></view>
+          <view class="td td1"><text class="text3">{{index+1}}</text></view>
+          <view class="td td2"><image class="img_c" src="http://irating.tansuotv.com/{{item.logo}}"></image></view>
+          <view class="td td3">
+            <text class="text1">{{math.sub(item.program_name, 5)}}</text>
+            <text class="text2">{{item.channel_name}}</text>
+          </view>
+          <view class="td td4"><text class="text3">{{math.toFixed(item.audience_rating)}}</text></view>
+          <view class="td td4"><text class="text3">{{math.toFixed(item.occupancy)}}</text></view>
+        </view>
+      </block>
+      
+    </view> 
+  </view>
+</view>
+
+<wxs module="math">
+  var toFixed = function(num){
+    num = num*100;
+    return num.toFixed(3);
+  }
+
+  var sub = function(str,n){
+    var r= getRegExp('^\x00-\xff', 'g');
+
+    if(str.replace(r,"mm").length <= n){return str;}
+
+    var m=Math.floor(n/2);
+
+    for(var i=m; i<str.length; i++){
+      if(str.slice(0,i).replace(r,"mm").length > n){
+        return str.slice(0,i)+"...";
+      }
+    }
+    
+    return str;
+  } 
+
+  module.exports.toFixed = toFixed;
+  module.exports.sub = sub;
+</wxs>

@@ -1,0 +1,16 @@
+<!--pages/article/article.wxml-->
+<import src="../../wxParse/wxParse.wxml" />
+<view class="content">
+  <view class="page__bd">
+    <view class="weui-article">
+      <view class="weui-article__h1">{{title}}</view>
+      <view class="page__desc">{{updatetime}}</view>
+      <view class="weui-article__section">
+        <template is="wxParse" data="{{wxParseData:content.nodes}}" />
+      </view>
+      <view style='text-align:center;display:{{isbackbutton}};'>
+        <button type='primary' open-type="switchTab" bindtap='backindex' style="background:#3c9df9" size='mini'>返回首页</button>
+      </view>
+    </view>
+  </view>
+</view>

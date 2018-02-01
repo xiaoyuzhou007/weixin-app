@@ -1,0 +1,142 @@
+<!--rank.wxml-->
+<view class="container">
+  <view class="top_con box">
+      <view class="date_c">
+        <picker mode="date" fields="month" value="{{date}}" start="2010-01" end="{{time}}" bindchange="bindDateChange">
+          <view class="picker tc">{{date}}<image class="arrow" src="../../image/arrow.png"></image></view>
+        </picker>
+      </view> 
+      <view class="box_2">
+        <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}">
+          <view class="tab-item {{currentTab==0?'active':''}}" data-current="0" data-index="2" bindtap="swichNav">电视剧</view>
+          <view class="tab-item {{currentTab==1?'active':''}}" data-current="1" data-index="1" bindtap="swichNav">电影</view>
+          <view class="tab-item {{currentTab==2?'active':''}}" data-current="2" data-index="5" bindtap="swichNav">综艺</view>
+          <view class="tab-item {{currentTab==3?'active':''}}" data-current="3" data-index="4" bindtap="swichNav">网剧</view>
+          <view class="tab-item {{currentTab==4?'active':''}}" data-current="4" data-index="3" bindtap="swichNav">网络大电影</view>
+        </scroll-view> 
+      </view> 
+  </view>
+  <swiper class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{winHeight}}rpx">
+     <!-- tab1 -->
+    <view wx:for="{{forArray}}"> 
+    <swiper-item>
+      <scroll-view scroll-y="true" class="scoll-h" >
+        <view class="rank_con">
+
+          <view wx:for="{{list}}">
+            <view wx:if="{{index == 0}}">
+              <view class="rank_c">
+                <view class="img_c">
+                  <view wx:if="{{list[index+1].imgurl}}"><image class="img" src="{{list[index+1].imgurl}}"></image></view>
+                  <view wx:else><image class="img" src="../../image/zanwu.png"></image></view>
+                  <image class="num" src="../../image/num_02.png"></image>
+                  <view wx:if="{{list[index].vmatch_flag == 1}}">
+                  <image class="v_icon" src="../../image/v_icon.png"></image>
+                  </view>
+                </view>
+                <view class="text1">{{tools.format(list[index+1].sum_played_count)}}</view>
+                <view class="text2">{{tools.sub(list[index+1].name, 5)}}</view>
+              </view>
+            </view>
+            <view wx:if="{{index == 1}}">
+              <view class="rank_c">
+                <view class="img_c1">
+                  <view wx:if="{{list[index-1].imgurl}}"><image class="img" src="{{list[index-1].imgurl}}"></image></view>
+                  <view wx:else><image class="img" src="../../image/zanwu.png"></image></view>
+                  <image class="num" src="../../image/num_01.png"></image>
+                  <view wx:if="{{list[index].vmatch_flag == 1}}">
+                  <image class="v_icon" src="../../image/v_icon.png"></image>
+                  </view>                 
+                </view>
+                <view class="text1">{{tools.format(list[index-1].sum_played_count)}}</view>
+                <view class="text2">{{tools.sub(list[index-1].name, 5)}}</view>
+              </view>
+            </view>
+            <view wx:if="{{index == 2}}">
+              <view class="rank_c">
+                <view class="img_c">
+                  <view wx:if="{{item.imgurl}}"><image class="img" src="{{item.imgurl}}"></image></view>
+                  <view wx:else><image class="img" src="../../image/zanwu.png"></image></view>
+                  <image class="num" src="../../image/num_03.png"></image>
+                  <view wx:if="{{list[index].vmatch_flag == 1}}">
+                  <image class="v_icon" src="../../image/v_icon.png"></image>
+                  </view>
+                </view>
+                <view class="text1">{{tools.format(item.sum_played_count)}}</view>
+                <view class="text2">{{tools.sub(item.name, 5)}}</view>
+              </view>
+            </view>
+          </view>
+
+        </view>
+        <view class="table">
+
+          <view wx:for="{{list}}">
+            <view wx:if="{{index > 2}}">
+              <view class="tr">
+                <view class="bg-g"></view>
+                <view class="td td1">
+                  <text class="text4">{{index+1}}</text>
+                </view>
+                <view class="td td2">
+                  <view class="img_c2">
+                    <view wx:if="{{list[index].imgurl}}"><image class="img" src="{{list[index].imgurl}}"></image></view>
+                    <view wx:else><image class="img" src="../../image/zanwu.png"></image></view>
+                    <view wx:if="{{list[index].vmatch_flag == 1}}">
+                    <image class="v_icon" src="../../image/v_icon.png"></image>
+                    </view>
+                  </view>
+                </view>
+                <view class="td td3">
+                  <text class="text5">{{tools.sub(list[index].name, 8)}}</text>
+                </view>
+                <view class="td td4">
+                  <text class="text3">{{tools.format(list[index].sum_played_count)}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+
+        </view>
+      </scroll-view>
+    </swiper-item>
+    </view>
+     
+  </swiper>
+</view>
+
+<wxs module="tools">
+  var format = function(num){
+    var r= getRegExp('\,', 'g');
+    num = num.replace(r, '');
+
+    if(num >= 10000000){
+      num = num / 100000000;
+      return num.toFixed(2) + '亿';
+    } else if (num >= 1000){
+      num = num / 1000;
+      return num.toFixed(2) + '万';
+    } else {
+      return num;
+    }
+  }
+
+  var sub = function(str,n){
+    var r= getRegExp('^\x00-\xff', 'g');
+
+    if(str.replace(r,"mm").length <= n){return str;}
+
+    var m=Math.floor(n/2);
+
+    for(var i=m; i<str.length; i++){
+      if(str.slice(0,i).replace(r,"mm").length > n){
+        return str.slice(0,i)+"...";
+      }
+    }
+    
+    return str;
+  } 
+
+  module.exports.format = format;
+  module.exports.sub = sub;
+</wxs>

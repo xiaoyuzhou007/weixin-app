@@ -1,0 +1,53 @@
+/* reset */
+ @import "style/weui.wxss"; 
+
+page {
+  background-color: #222062;
+  height: 100%;
+  font-size: 32rpx;
+  line-height: 1.6;
+  box-sizing: border-box;
+}
+checkbox, radio{
+  margin-right: 10rpx;
+}
+button{
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+form{
+  width: 100%;
+}
+
+/* lib */
+.strong{
+  font-weight: bold;
+}
+.tc{
+  text-align: center;
+}
+.box{ display: -webkit-box; display: box;}
+.box_1{ -webkit-box-flex:1; box-flex:1;}
+.box_2{ -webkit-box-flex:2; box-flex:2;}
+
+/* page */
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 32rpx;
+  box-sizing: border-box;
+  font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+  background: linear-gradient(rgb(34,32,98), rgb(36,50,139));
+}
+/* 切换 */
+.tab-content{ width: 100%;}
+.tab-h{height: 99rpx;width: 100%; box-sizing: border-box;overflow: hidden;line-height: 99rpx; font-size: 28rpx; white-space: nowrap;}
+.tab-item{ margin:0 50rpx; display: inline-block; color: #fff; opacity: 0.7;}
+.tab-item.active{color: #3c9df9;position: relative; opacity: 1;}
+.tab-item.active:after{ content: "";display: inline-block;height: 4rpx;width: 52rpx;background: #2d98ff;position: absolute; bottom: 0;left: 50%; border-radius: 16rpx; margin-left: -26rpx;}
+.item-ans{ width: 100%;display: flex; flex-grow: row no-wrap;justify-content: space-between; padding: 30rpx;box-sizing: border-box; height: 180rpx;align-items: center;border-bottom: 1px solid #F2F2F2;}
+ .tab-content{ margin-top: 100rpx;} 
+.scoll-h{ height: 100%;} 

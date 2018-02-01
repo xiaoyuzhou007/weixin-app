@@ -1,0 +1,7 @@
+/* pages/article/article.wxss */
+@import "../../wxParse/wxParse.wxss";  
+.content{ background: linear-gradient(rgb(34,32,98), rgb(36,50,139)); min-height: 100%;}
+.weui-article{ color: #fff;}
+.weui-article__h1 {  margin-bottom: 20rpx;}
+.weui-article__p{ opacity: 0.8; text-indent: 2em;}
+.page__desc{ opacity: 0.6; margin-bottom: 50rpx;}
